@@ -117,7 +117,7 @@ public class ProjectHelpers {
         }
     }
 
-/*
+
       // Apply FFT to ComplexSignal
     public static ComplexSignal FFT1D(ComplexSignal signal) {
         var x = toComplex(signal);
@@ -182,5 +182,5 @@ public class ProjectHelpers {
             y[k + n / 2] = evenFFT[k].subtract(wk.multiply(oddFFT[k]));
         }
         return y;
-    }*/
+    }
 }
