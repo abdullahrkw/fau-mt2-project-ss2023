@@ -101,4 +101,33 @@ public class ComplexImage {
         this.real = this.swapQuadrants(this.real);
         this.imag = this.swapQuadrants(this.imag);
     }
+
+    private mt.Image setOutPixelsToZero(mt.Image input, int lines, int axis) {
+        int width = input.width();
+        int height = input.height();
+        mt.Image result = new mt.Image(width, height, "Image Dummy");
+        if (axis == 0) {
+            for (int y = input.minIndexY(); y <= input.maxIndexY(); ++y) {
+                for (int x = input.minIndexX() + lines; x <= (input.maxIndexX() - lines); ++x) {
+                    result.setAtIndex(x, y, input.atIndex(x, y));
+                }
+            }
+        }
+        else if (axis == 1) {
+            for (int y = input.minIndexY() + lines; y <= (input.maxIndexY() - lines); ++y) {
+                for (int x = input.minIndexX(); x <= input.maxIndexX(); ++x) {
+                    result.setAtIndex(x, y, input.atIndex(x, y));
+                }
+            }
+        }
+        
+        return result;
+    }
+    public void setOuterToZero(int lines, int axis) {
+        if (axis != 0 && axis != 1) {
+            throw new RuntimeException("Only 0 (x-axis) and 1 (y-axis) values are supported for axis");
+        }
+        this.real = this.setOutPixelsToZero(this.real, lines, axis);
+        this.imag = this.setOutPixelsToZero(this.imag, lines, axis);
+    }
 }

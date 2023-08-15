@@ -27,7 +27,7 @@ public class Project {
         DisplayUtils.showImage(kSpace.getLogMagnitude(), "KSpace: LogMagnitude", kSpace.getWidth());
         DisplayUtils.showImage(kSpace.getPhase(), "KSpace: Phase", kSpace.getWidth());
 
-        // // ComplexSignal
+        // ComplexSignal
         ComplexSignal cSignal = new ComplexSignal(256, "Complex Signal");
         cSignal.generateSine(5);
         DisplayUtils.showArray(cSignal.getReal(), "Re(s)", 0, 1);
@@ -55,5 +55,32 @@ public class Project {
         rKSpace.fftShift();
         DisplayUtils.showImage(rKSpace.getLogMagnitude(), "Reconst. KSpace: LogMagnitude", rKSpace.getWidth());
         DisplayUtils.showImage(rKSpace.getPhase(), "Reconst. KSpace: Phase", rKSpace.getWidth());
+
+        // Apply Sinc filter in Image Domain
+        ComplexImage kSpace2 = ProjectHelpers.LoadKSpace("kdata.h5");
+        kSpace2.fftShift();
+        ComplexImage mrImage = ProjectHelpers.InverseFFT2D(kSpace2);
+        mrImage.fftShift();
+        SincFilter2d realFilter = new SincFilter2d(31, 4.0f);
+        LinearComplexImageFilter complexFilter = new LinearComplexImageFilter(realFilter);
+        ComplexImage filteredImage = complexFilter.apply(mrImage);
+        DisplayUtils.showImage(filteredImage.getMagnitude(), "Filt. Image: Magnitude", filteredImage.getWidth());
+
+        // kSpace of Sinc filtered Image
+        filteredImage.fftShift();
+        ComplexImage filteredKSpace = ProjectHelpers.FFT2D(filteredImage);
+        filteredKSpace.fftShift();
+        DisplayUtils.showImage(filteredKSpace.getLogMagnitude(), "Filt. Image KSpace Reconst.: LogMagnitude", filteredKSpace.getWidth());
+    
+        // Box Multiplication of KSpace
+        kSpace2.fftShift(); // reverting previous fftshift
+        kSpace2.setOuterToZero(96, 0);
+        kSpace2.setOuterToZero(96, 1);
+        DisplayUtils.showImage(kSpace2.getLogMagnitude(), "KSpace Box Mutlp.: LogMagnitude", kSpace2.getWidth());
+
+        kSpace2.fftShift();
+        ComplexImage kFilteredImage = ProjectHelpers.InverseFFT2D(kSpace2);
+        kFilteredImage.fftShift();
+        DisplayUtils.showImage(kFilteredImage.getMagnitude(), "KSpace Filt. Image: Magnitude", kFilteredImage.getWidth());
     }
 }
