@@ -154,4 +154,26 @@ public class Image extends Signal {
     public void fft() {
         DisplayUtils.FFT(buffer, name, width(), origin, /*spacing()*/ 1.0f);
     }
+
+    public void setBufferFromCenterArea(int width, int height, float[] buffer, int inputWidth, int inputHeight) {
+        if ((width > inputWidth) || (height > inputHeight)) {
+            throw new RuntimeException("width and height should be less than (or equal) inputWidth and inputHeight");
+        }
+        int offsetWidth = (int)((inputWidth - width)/2);
+        int offsetHeight = (int)((inputHeight - height)/2);
+        // create new buffer for cropped Image
+        float[] croppedBuffer = new float[width*height];
+        // Fill cropped buffer
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                croppedBuffer[y * width + x] = buffer[(y + offsetHeight) * inputWidth + (x + offsetWidth)];
+            }
+        }
+        // set Image Properties to cropped Image
+        this.setBuffer(croppedBuffer);
+        this.width = width;
+        this.height = height;
+        this.minIndexX = 0;
+        this.minIndexY = 0;
+    }
 }

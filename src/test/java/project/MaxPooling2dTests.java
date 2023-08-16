@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MaxPooling2dTests {
-/*
+
     @Test
     void testMaxPooling2d() {
 
@@ -27,7 +27,6 @@ public class MaxPooling2dTests {
 
         // define input image
         Image img = new Image(input[0].length, input.length, "input image");
-
         System.out.println(">> input: ");
         for (int h = 0; h < img.height(); h++) {
             for (int w = 0; w < img.width(); w++) {
@@ -66,5 +65,5 @@ public class MaxPooling2dTests {
         // assert equality of output and expected output
         Assertions.assertArrayEquals(expectedOutput, outputArray);
     }
-*/
+
 }

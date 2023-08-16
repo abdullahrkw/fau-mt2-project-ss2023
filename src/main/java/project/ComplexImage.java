@@ -25,6 +25,26 @@ public class ComplexImage {
         this.imag = new mt.Image(this.width, this.height, this.name, bufferImag);
     }
 
+    // Copy constructor
+    public ComplexImage(ComplexImage otherComplexImage) {
+        this.width = otherComplexImage.getWidth();
+        this.height = otherComplexImage.getHeight();
+        this.name = otherComplexImage.getName();
+        this.real = new mt.Image(this.width, this.height, this.name, otherComplexImage.getReal());
+        this.imag = new mt.Image(this.width, this.height, this.name, otherComplexImage.getImag());
+    }
+
+    // Constructor for cropping
+    public ComplexImage(int width, int height, String name, float[] bufferReal, float[] bufferImag, int inputWidth, int inputHeight) {
+        this.width = width;
+        this.height = height;
+        this.name = name;
+        this.real = new mt.Image(inputWidth, inputHeight, this.name, bufferReal);
+        this.real.setBufferFromCenterArea(width, height, bufferReal, inputWidth, inputHeight);
+        this.imag = new mt.Image(inputWidth, inputHeight, this.name, bufferReal);
+        this.imag.setBufferFromCenterArea(width, height, bufferImag, inputWidth, inputHeight);
+    }
+
     public int getWidth() {
         return this.width;
     }
@@ -44,6 +64,7 @@ public class ComplexImage {
     public float[] getImag() {
         return this.imag.buffer();
     }
+
     private Image calculateMagnitude(boolean logFlag) {
         Image result = new Image(this.width, this.height, "Image Mag. Dummy");
         for (int y = this.real.minIndexY(); y <= this.real.maxIndexY(); ++y) {
@@ -123,6 +144,7 @@ public class ComplexImage {
         
         return result;
     }
+
     public void setOuterToZero(int lines, int axis) {
         if (axis != 0 && axis != 1) {
             throw new RuntimeException("Only 0 (x-axis) and 1 (y-axis) values are supported for axis");
