@@ -7,21 +7,20 @@
  */
 package exercises;
 
-
 public class Exercise01 {
 	public static void main(String[] args) {
 		(new ij.ImageJ()).exitWhenQuitting(true);
 
-		var cos = new mt.CosineWave(1, 1024);
-		var sin = new mt.SineWave(1, 1024);
+		mt.CosineWave cos = new mt.CosineWave(1, 1024);
+		mt.SineWave sin = new mt.SineWave(1, 1024);
 
 		cos.show();
 		sin.show();
 
-		var numWaves = 3;
-		//TODO try to understand the code and play around with it! 
+		int numWaves = 3;
+		// TODO try to understand the code and play around with it! 
 
-		var coolWave = new mt.SineWave(1 * numWaves, 1024)
+		mt.Signal coolWave = new mt.SineWave(1 * numWaves, 1024)
 			.plus(new mt.SineWave(2 * numWaves, 1024).times(-1.0f/2.0f))
 			.plus(new mt.SineWave(3 * numWaves, 1024).times(+1.0f/3.0f))
 			.plus(new mt.SineWave(4 * numWaves, 1024).times(-1.0f/4.0f))

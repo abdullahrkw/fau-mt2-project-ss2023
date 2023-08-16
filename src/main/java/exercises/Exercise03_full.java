@@ -19,16 +19,16 @@ public class Exercise03_full {
 		image.fft();
 
 		//FFT der Beispiele
-		var wave_1_0 = new mt.CosineWave2d(new Vector2d(1, 0), 256, 256, "Cosine 1 0");
+		mt.CosineWave2d wave_1_0 = new mt.CosineWave2d(new Vector2d(1, 0), 256, 256, "Cosine 1 0");
 		wave_1_0.show();
 		wave_1_0.fft();
-		var wave_0_1 = new mt.CosineWave2d(new Vector2d(0, 1), 256, 256, "Cosine 0 1");
+		mt.CosineWave2d wave_0_1 = new mt.CosineWave2d(new Vector2d(0, 1), 256, 256, "Cosine 0 1");
 		wave_0_1.show();
 		wave_0_1.fft();
 
 
 		//Checkboard patterns
-		var plus = new mt.SineWave2d(new Vector2d(4, 0), 512, 512, "Cosine 1 0")
+		mt.Image plus = new mt.SineWave2d(new Vector2d(4, 0), 512, 512, "Cosine 1 0")
 				.add(new mt.SineWave2d(new Vector2d(0, 4), 512, 512, "Cosine 1 0"))
 				.add(new mt.CosineWave2d(new Vector2d(0, 4), 512, 512, "Cosine 1 0"))
 		.add(new mt.CosineWave2d(new Vector2d(4, 0), 512, 512, "Cosine 1 0"));

@@ -50,12 +50,12 @@ public class ProjectHelpers {
         if (input.width != input.height) {
             throw new RuntimeException("Our implementation only works for image width equal to image height.");
         }
-        var N = input.width;
+        int N = input.width;
         c2c2DFFT(input.real.buffer(), input.imag.buffer(), N, tmpRe, tmpIm);
 
         //That's some dirty forward transforming (reversing array order of inverse transform and adding some scaling)
         if (!inverseTransform) {
-            var arrLength = tmpRe.length;
+            int arrLength = tmpRe.length;
             for (int i = 0; i < arrLength / 2; i++) {
                 float temp = tmpRe[i];
                 tmpRe[i] = tmpRe[arrLength - i - 1] * (float) arrLength;
@@ -66,7 +66,7 @@ public class ProjectHelpers {
             }
         }
 
-        var output = new ComplexImage(input.width, input.height, "iDFT of " + input.name);
+        ComplexImage output = new ComplexImage(input.width, input.height, "iDFT of " + input.name);
         output.real.setBuffer(tmpRe);
         output.imag.setBuffer(tmpIm);
         return output;
@@ -120,7 +120,7 @@ public class ProjectHelpers {
 
       // Apply FFT to ComplexSignal
     public static ComplexSignal FFT1D(ComplexSignal signal) {
-        var x = toComplex(signal);
+        Complex[] x = toComplex(signal);
 
         return fromComplex(fft(x), signal, "FFT");
     }

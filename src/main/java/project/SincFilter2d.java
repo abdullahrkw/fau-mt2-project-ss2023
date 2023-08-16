@@ -9,7 +9,7 @@ public class SincFilter2d extends LinearImageFilter{
 
         super(filterSize, filterSize, "Sinc2d (" + filterSize + ", " + downScale + ")");
 
-        var s = new Sinc(true);
+        Sinc s = new Sinc(true);
 
         /* your code here, get inspiration in exercise 4 if you don't remember */
         for (int y = minIndexY; y < minIndexY + height(); ++y) {
