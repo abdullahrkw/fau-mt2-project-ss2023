@@ -1,10 +1,6 @@
 package project;
 
-import mt.Image;
 import mt.Signal;
-import java.util.Objects;
-
-import lme.DisplayUtils;
 
 public class ComplexSignal {
     protected mt.Signal real;    //Image object to store real part
