@@ -51,22 +51,22 @@ public class Project {
         SincFilter2d realFilter = new SincFilter2d(31, 4.0f);
         LinearComplexImageFilter complexFilter = new LinearComplexImageFilter(realFilter);
         ComplexImage sincFilteredImage = complexFilter.apply(rImage);
-        DisplayUtils.showImage(sincFilteredImage.getMagnitude(), "Filt. Image: Magnitude", sincFilteredImage.getWidth());
+        DisplayUtils.showImage(sincFilteredImage.getMagnitude(), "Sinc Filt. Image: Magnitude", sincFilteredImage.getWidth());
 
         ComplexImage filteredKSpace = Project.convertImageSpace2KSpace(sincFilteredImage);
-        DisplayUtils.showImage(filteredKSpace.getLogMagnitude(), "Filt. Image KSpace Reconst.: LogMagnitude", filteredKSpace.getWidth());
+        DisplayUtils.showImage(filteredKSpace.getLogMagnitude(), "Sinc Filt. Image KSpace Reconst.: LogMagnitude", filteredKSpace.getWidth());
     
         // Box Multiplication in KSpace and then its MR Image is constructed
         ComplexImage boxMultipliedKSpace = new ComplexImage(kSpace);
         boxMultipliedKSpace.setOuterToZero(96, 0);
         boxMultipliedKSpace.setOuterToZero(96, 1);
-        DisplayUtils.showImage(boxMultipliedKSpace.getLogMagnitude(), "KSpace Box Mutlp.: LogMagnitude", boxMultipliedKSpace.getWidth());
+        DisplayUtils.showImage(boxMultipliedKSpace.getLogMagnitude(), "KSpace Box Multp.: LogMagnitude", boxMultipliedKSpace.getWidth());
 
         ComplexImage boxMultipliedKSpaceImage = Project.convertKSpace2ImageSpace(boxMultipliedKSpace);
         DisplayUtils.showImage(boxMultipliedKSpaceImage.getMagnitude(), "KSpace Filt. Image: Magnitude", boxMultipliedKSpaceImage.getWidth());
         
         // Cropped kSpace and then its MR Image is constructed
-        ComplexImage croppedKSpace = new ComplexImage(128, 128, kSpace.getName(), kSpace.getReal(), kSpace.getImag(), kSpace.getWidth(), kSpace.getHeight());
+        ComplexImage croppedKSpace = new ComplexImage(64, 64, kSpace.getName(), kSpace.getReal(), kSpace.getImag(), kSpace.getWidth(), kSpace.getHeight());
         DisplayUtils.showImage(croppedKSpace.getLogMagnitude(), "Cropped KSpace: LogMagnitude", croppedKSpace.getWidth());
 
         ComplexImage croppedKSpaceImage = Project.convertKSpace2ImageSpace(croppedKSpace);
